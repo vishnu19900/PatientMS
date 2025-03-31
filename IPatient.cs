@@ -2,7 +2,7 @@
 
 namespace PatientMS
 {
-    public interface IPatient
+    public interface IPatientService
     {
         Task<List<Patient>> GetAll();
         Task<Patient> GetById(int id);

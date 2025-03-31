@@ -4,7 +4,7 @@ using PatientMS.Models;
 
 namespace PatientMS
 {
-    public class PatientService : IPatient
+    public class PatientService : IPatientService
     {
         PatentMSDBContext database;
         public PatientService(PatentMSDBContext _database) 

@@ -8,8 +8,8 @@ namespace PatientMS.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
-        PatientService patientService;
-        PatientController(PatientService _patientService)
+        IPatientService patientService;
+        public PatientController(IPatientService _patientService)
         {
             this.patientService = _patientService;
         }

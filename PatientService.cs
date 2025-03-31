@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PatientMS.Data;
 using PatientMS.Models;
+using System.Collections.Generic;
 
 namespace PatientMS
 {
@@ -25,10 +26,10 @@ namespace PatientMS
             try
             {
 
-            var pat =   await database.Patients.FirstOrDefaultAsync(x => x.Id == Id);    
+            var pat =   await database.Patient.FirstOrDefaultAsync(x => x.Id == Id);    
             if (pat != null)
             {
-                database.Patients.Remove(pat);  
+                database.Patient.Remove(pat);  
             }
             return true;
             }
@@ -40,24 +41,31 @@ namespace PatientMS
 
         public async Task<List<Patient>> GetAll()
         {
-            var getPat = await database.Patients.ToListAsync();
-            return getPat;
+            try
+            {
+                var getPat = await database.Patient.ToListAsync();
+                return getPat;
+            }
+            catch (Exception ex)
+            {
+                return new List<Patient>();
+            }
         }
 
         public  async Task<Patient> GetById(int id)
         {
-            var getpat = await database.Patients.FirstOrDefaultAsync(x => x.Id == id);
+            var getpat = await database.Patient.FirstOrDefaultAsync(x => x.Id == id);
             return getpat;
 
         }
 
         public async Task<Patient> Update(Patient Patient)
         {
-            var getpat = await database.Patients.FirstOrDefaultAsync(x => x.Id == Patient.Id);
+            var getpat = await database.Patient.FirstOrDefaultAsync(x => x.Id == Patient.Id);
             if (getpat != null)
             {
                 getpat.UpdatedDate = System.DateTime.Now;
-                database.Patients.Attach(getpat);
+                database.Patient.Attach(getpat);
                 database.Entry(getpat).State = EntityState.Modified;
                 database.SaveChanges();
             }
